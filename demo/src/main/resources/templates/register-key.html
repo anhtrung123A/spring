@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Nhom 6</title>
+
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+	<script type="text/javascript" th:src="@{/js/xulykey.js}"></script>
+	<script type="text/javascript" th:src="@{/js/laynoidungfile.js}"></script>
+	<script type="text/javascript" th:src="@{/js/node-forge/dist/forge.all.min.js}"></script>
+</head>
+
+<body>
+	<div th:replace="fragments/header :: header"></div>
+
+	public key: <input type="file" id="filePublickey">
+	<br><br>
+	private key:<input type="file" id="filePrivatekey">
+	<br><br>
+	<form th:action="@{/register}" method="post" th:object="${ChuSoHuu}" id="myForm">
+		<input type="hidden" th:field="*{id}">
+		<input type="text" th:field="*{publicKey}" id="publicKey" style="display:none;">
+
+
+		<input type="text" th:field="*{firstName}" class="form-control mb-4 w-25 " placeholder="first Name">
+
+		<input type="text" th:field="*{lastName}" class="form-control mb-4 w-25 " placeholder="Last Name">
+
+		<input type="text" th:field="*{email}" class="form-control mb-4 w-25 " placeholder="Email">
+
+		<input type="text" th:field="*{sdt}" class="form-control mb-4 w-25 " placeholder="Số điện thoại">
+
+
+	</form>
+	<button id="submit" class="btn btn-info col-2" onclick="submit()">Đăng kí</button>
+	<br>
+	<hr>
+	<div th:if="${mes}" th:text="${mes}"></div>
+	<div th:if="${csh}">
+		id: <span th:text="${csh.id}"></span>
+		<br>
+		First name: <span th:text="${csh.firstName}"></span>
+		<br>
+		Last name: <span th:text="${csh.lastName}"></span>
+		<br>
+		email: <span th:text="${csh.email}"></span>
+		<br>
+		Số điện thoại: <span th:text="${csh.sdt}"></span>
+		<br>
+
+	</div>
+	<script th:inline="javascript">
+		function submit() {
+			var publicKeyBase64
+			var publicKey
+			
+			// lây ra nội dung trong file chứa public key
+			layNoiDung(document.getElementById('filePublickey'))
+				// tạo public key
+				.then(
+					function (_publicKeyBase64) {
+						console.log('1')
+						publicKeyBase64 = _publicKeyBase64
+						document.getElementById('publicKey').value = _publicKeyBase64
+						return convertToPublicKey(publicKeyBase64)
+					}
+				// lấy ra nội dung trong file chứa private key
+				).then(
+					function (_publicKey) {
+						console.log(2)
+						publicKey = _publicKey
+						return layNoiDung(document.getElementById('filePrivatekey'))
+					}
+				// tạo private key
+				).then(
+					function (_privateKeyBase64) {
+						console.log(3)
+						return convertToPrivateKey(_privateKeyBase64)
+					}
+				// kiểm tra private key và public key có tương thích không
+				).then(
+					function (privateKey) {
+						console.log(4)
+						console.log(publicKey)
+						console.log(privateKey)
+						return checkKey(privateKey, publicKey)
+					}
+				// gửi yêu cầu đến server
+				).then(
+					function (kq) {
+						console.log(5)
+						document.getElementById('myForm').submit();
+					}
+				).catch(
+					function (kq) {
+						console.log(6)
+						alert("publickey không hợp lệ");
+					}
+				)
+		}
+	</script>
+</body>
+
+</html>

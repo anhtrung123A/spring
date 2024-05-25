@@ -1,0 +1,26 @@
+<header th:fragment="header" xmlns:th="http://www.thymeleaf.org">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark mb-3">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="topNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/generate-key}">Tạo khóa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/register-key}">Đăng kí khóa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/thongtinkhoa}">Tìm thông tin khóa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/sign-file}">Kí file</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/verify-file}">Xác thực file</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

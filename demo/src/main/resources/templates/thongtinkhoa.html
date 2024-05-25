@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+	<title>Nhom 6</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/laynoidungfile.js}"></script>
+
+</head>
+
+<body>
+	<div th:replace="fragments/header :: header"></div>
+
+	Public key: <input type="file" class="form-control-file" id="file_pk">
+	<br>
+	<form method="post" th:action="@{/upload}" enctype="multipart/form-data" id="myForm">
+		<input type="hidden" name="file" id="publickey">
+	</form>
+	<button onclick="submit()" class="btn btn-primary">Upload file</button>
+
+	<hr>
+	Thông tin chủ sở hữu: <br>
+
+	<div th:if="${mes}" th:text="${mes}"></div>
+	<div th:if="${csh}">
+		id: <span th:text="${csh.id}"></span>
+		<br>
+		First name: <span th:text="${csh.firstName}"></span>
+		<br>
+		Last name: <span th:text="${csh.lastName}"></span>
+		<br>
+		email: <span th:text="${csh.email}"></span>
+		<br>
+		Số điện thoại: <span th:text="${csh.sdt}"></span>
+		<br>
+	</div>
+	<script th:inline="javascript">
+		var pk;
+		function submit() {
+			layNoiDung(document.getElementById('file_pk'))
+				.then(
+					function (s) {
+						s = s.replaceAll('\n', "")
+						s = s.replaceAll('\r', "")
+						document.getElementById('publickey').value = s;
+						document.getElementById('myForm').submit();
+					}
+				)
+		}
+	</script>
+</body>
+
+</html>

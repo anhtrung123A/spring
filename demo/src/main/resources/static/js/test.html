@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./node-forge/dist/forge.all.min.js"></script>
+    <script src="./ki.js"></script>
+    <script src="./laynoidungfile.js"></script>
+    <script src="./xulykey.js"></script>
+
+</head>
+
+<body>
+    <span
+        id="publickey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2AJV5aykGdK8GX7fza939XxcGAABrhaIflYagbZ1nnPsqlmB8BBlHOsjGMqV+07ktFzNc3p9RZF3KOqdt+Mf1BMda+xUkptTEqH6p7Xj9D0aVepRk7klg/a7MwbDC/7sfSi5cNn4QxqNFRr5oRGt/RJuUSR6RkvG01Cyo4zLV4e46emtsQSekbmRTpvW9dHFi62ZcO7Bmeye8tYLzWJ4RYHJhwQZ/zLEI7dCXLUi1m9c+ZzhcjBDo1eDBKbE4uZ3pVkrJbv6avK/HZeT9qGIq5FQQc7C7ANvBdvdx/nFS+7hdK6Ota1+Xbs7yyql0XPke8Hw8CL3qMRnBSZccfIw4QIDAQAB</span>
+    <br>
+    <button id="bt_publickey" onclick="taoPublicKey()">tao publickey</button>
+    <br>
+
+    <span
+        id="privatekey">MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDYAlXlrKQZ0rwZft/Nr3f1fFwYAAGuFoh+VhqBtnWec+yqWYHwEGUc6yMYypX7TuS0XM1zen1FkXco6p234x/UEx1r7FSSm1MSofqnteP0PRpV6lGTuSWD9rszBsML/ux9KLlw2fhDGo0VGvmhEa39Em5RJHpGS8bTULKjjMtXh7jp6a2xBJ6RuZFOm9b10cWLrZlw7sGZ7J7y1gvNYnhFgcmHBBn/MsQjt0JctSLWb1z5nOFyMEOjV4MEpsTi5nelWSslu/pq8r8dl5P2oYirkVBBzsLsA28F293H+cVL7uF0ro61rX5duzvLKqXRc+R7wfDwIveoxGcFJlxx8jDhAgMBAAECggEAEZQNE/H677wJwSRlR5qEL1bFstFLUbS1Oly87vnfc/vYkltS2uumotYSxtlzn54ht/jGYmOhLqhiE1MWbyi9RhehIQ98KWsY9U73tC615IIVctDs/xHF1wmc3c/qzv7ZlWzbPG8MiD9wpDtL/brP1ySpFBLdHXvcrAUo6GzUfmSfk+f7/kxWmluMygQ4JW3pOfVTnMb6TA/YRWyDhoV8hVzNUkRByEdhrB1FmAfu9n2Rhi/E7RXxcnIrtLCVBTckOPR0MWOlzXKGXOCXI5lSGCLco72pp51aNoVFz/OrSIooJ9BuutImL4kNhkvsD6oGC/E3FvYW4ERXbRFphk9WfQKBgQDwi+1cppJ9FxF3FW4jFElmzTSnn8plL+E5soGxixPcTUTPTVsPgBUUzaq90Nf+h3rtRiHxPEFdLoWbpr6jRWtvKb7Dhzh/GiakALNZ3Sn4hrB2YWj/WbA7yZkZxUntfAeZp32+pV+yyX8eTyJek/nO4K7DcQJU/ey5C5K2e8x63QKBgQDl4txXRHBV4vR27wFFKP22Yz6VlBrRON94iOGGdDou0r8ArZQP9HU6hsjKa8ABc5cDoI3JA1WuJQ+gHczI6FFoT8tDLqGqO1ZVS2Hqh3ZzJES3JKDJL7UFneUfzRhOLAUOOdwyg1fvYPVlKznDCrxsXmbB6x7eANA67vbflnbj1QKBgEwnQIIwiffoMbNNqYyZg5N0K9NVlzHpspgdl0mqCiOYoswuZUHG/uWTJxbo4zjFk3lC1sQUm2zwqYPZikkOVTDgOnCUgqJamRkaz60Hg54Wpg8UT7Vno4+KB1pNR1ZUCePvTrPojx9/AyuJSgw/NLr2Dt35DQ/zQ9phe5UiJF5RAoGBAJ9XmgbbJ0pA39Y4YBcCDKoJLG4dlGEFHNC9gCTkFxgxd7cOmZxdg4wntLGp8hKPflNDTEPSjecBRU1kmnd/oD2/YVKV1fTa4EKK17nqX038C60uNEx/Rug3w4NBc+FrXa24qUpSA/emqzGOvqDUpjovTOaJBII46hyPWossDghpAoGBAISazm8qnLOrRX9q41KwL6PANnWFx2WFzivQFn9mEjncafTCGiRhW7E+/GddexCIjNjfd2v5AS1N4hC0mAnkR3s8ZoSsWhGEot8qaLkrZUtgyw9hPHFe3ft8tBU12vaUf08hi+IGKYRkUEGIStOAkGF9YKqemO1Ec+J7PgF/O09t</span>
+    <br>
+    <button id="bt_privatekey" onclick="taoPrivateKey()">tao publickey</button>
+    <br>
+
+    <br>
+    <input type="file" id="inputfile">
+    <br>
+
+    <br>
+    <button id="bt_check" onclick="check()">check</button>
+
+    <br>
+    <button onclick="kq()">Kết quả</button>
+
+    <script>
+        var publicKey
+        var privateKey
+        var signature
+        var verified
+        var bit
+        function taoPublicKey() {
+            convertToPublicKey(document.getElementById('publickey').innerText)
+                .then(
+                    function (_publickey) {
+                        publicKey = _publickey
+                    }
+                )
+        }
+
+        function taoPrivateKey() {
+            convertToPrivateKey(document.getElementById('privatekey').innerText)
+                .then(
+                    function (_privateKey) {
+                        privateKey = _privateKey
+                    }
+                )
+        }
+
+        function check() {
+            console.log(publicKey)
+            console.log(privateKey)
+            layBitFile(document.getElementById('inputfile'))
+                .then(
+                    function (bitfile) {
+                        var md = forge.md.sha1.create();
+                        md.update(bitfile, 'utf8');
+                        signature = privateKey.sign(md);
+                        verified = publicKey.verify(md.digest().bytes(), signature);
+                        if (verified) {
+                            console.log("1")
+                        } else {
+                            console.log("0")
+                        }
+                    }
+                )
+        }
+
+        function kq() {
+            console.log(signature)
+            console.log(verified)
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+	<title>Nhom 6</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+	<script type="text/javascript" th:src="@{/js/xulykey.js}"></script>
+	<script type="text/javascript" th:src="@{/js/laynoidungfile.js}"></script>
+	<script type="text/javascript" th:src="@{/js/node-forge/dist/forge.all.min.js}"></script>
+</head>
+
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	
+    file: <input type="file" id="myFileInput" />
+    <br><br>
+    Digital signature: <input type="file" accept=".txt" id="mySignature" />
+    <br><br>
+    public key: <input type="file" accept=".txt" id="mypublickey" />
+    <br><br>
+    <hr>
+    <button onclick="a()">Xác thực</button>
+    <script th:inline="javascript">
+        function a() {
+            var publickey;
+            var bitfile;
+            var verified=false;
+            //lay key
+            layNoiDung(document.getElementById('mypublickey'))
+                // tạo đối tượng private key
+                .then(
+                    function (s) {
+                        return convertToPublicKey(s)
+                    }
+
+                // lấy file dưới dạng bit
+                ).then(
+                    function (_publickey) {
+                        publickey = _publickey;
+                        return layBitFile(document.getElementById('myFileInput'))
+                    }
+                // lấy chữ kí
+                ).then(
+                    function (arraybuffer) {
+                        bitfile = arraybuffer;
+                        return layNoiDung(document.getElementById('mySignature'))
+                    }
+                // xác thực chữ kí
+                ).then(
+                    function (signature) {
+                        var md = forge.md.sha256.create();
+                        md.update(bitfile, 'utf8');
+
+                        return new Promise(
+                            function(res, rej) {
+                                res(publickey.verify(md.digest().bytes(), signature));
+                            }
+                        )
+                    }
+                // thông báo kết quả
+                ).then(
+                    function(verify) {
+                        if (verify) {
+                           alert("chữ kí đúng")
+                        } else {
+                           alert("chữ kí sai")
+                        }
+
+                    }
+                )
+        }
+    </script>
+</body>
+
+</html>
